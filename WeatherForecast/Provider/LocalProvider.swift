@@ -8,12 +8,7 @@
 import Foundation
 
 class LocalProvider: DataProvider {
-    
-    init() {
-        
-    }
-    
-    func readData(dataAvailableCallback: ([DayWeather]) -> Void) {
+    func readData(location: Location, dataAvailableCallback: @escaping (Data?, Bool) -> Void) {
         
     }
 }

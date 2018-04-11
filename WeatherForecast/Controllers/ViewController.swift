@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, WeatherDataProviderDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var weatherCollection: UICollectionView!
     
-    var location: Location?
+    var location: Location = Location(lat: Constants.defaultLat, lon: Constants.defaultLon)
     var weatherData: [DayWeather] = []
     
     let reuseCellIdentifier = "DayCell"
@@ -27,8 +28,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         weatherCollection.delegate = self
         weatherCollection.isUserInteractionEnabled = true
         
-        WeatherProvider.sharedInstance.delegate = self
-        WeatherProvider.sharedInstance.loadData()
+        setCurrentLocation()
+        WeatherProvider.sharedInstance.loadData(for: self.location, weatherAvailableCallback: onWeatherDataAvailable)
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,10 +37,34 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: Data provider delegate
-    func onWeatherDataAvailable(data: [DayWeather]) {
-        self.weatherData = data
-        self.weatherCollection.reloadData()
+    func setCurrentLocation() {
+        let locationManager = CLLocationManager()
+        
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        }
+        if let loc = locationManager.location {
+            print("Current location \(loc.coordinate.latitude),\(loc.coordinate.longitude)")
+            self.location = Location(lat: loc.coordinate.latitude, lon: loc.coordinate.longitude)
+        } else {
+            print("No location available")
+        }
+    }
+    
+    func onWeatherDataAvailable(weatherData: [DayWeather]?, success: Bool) {
+        if let data = weatherData, data.count > 0, success {
+            print("Weather data successfully loaded")
+            self.weatherData = data
+            self.weatherCollection.reloadData()
+        } else if let data = weatherData, data.count == 0, success {
+            print("No data found for specified location")
+        } else {
+            print("Error loading data")
+        }
     }
     
     //MARK: CollectionView
@@ -47,17 +72,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return self.weatherData.count
     }
     
-    /*func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
-        return 3
-    }*/
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let indx = indexPath.row
         print("cell for index \(indx)")
         let cell: DayWeatherCellView = weatherCollection.dequeueReusableCell(withReuseIdentifier: reuseCellIdentifier, for: indexPath) as! DayWeatherCellView
-        cell.backgroundColor = UIColor.white
-        
+        //cell.backgroundColor = UIColor.blue
+    
         cell.setData(weather: weatherData[indx])
         
         return cell as UICollectionViewCell

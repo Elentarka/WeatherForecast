@@ -9,37 +9,34 @@ import Foundation
 
 class RemoteProvider: DataProvider {
     
-    init() {
+    func readData(location: Location, dataAvailableCallback: @escaping (Data?, Bool) -> Void) {
+        let urlString = Configuration.sharedInstance.serverUrl
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL \(urlString)")
+            return
+        }
         
-    }
-    
-    func readData(dataAvailableCallback: ([DayWeather]) -> Void) {
-        let urlString = "https://3mypq17dkk.execute-api.eu-central-1.amazonaws.com/testing"
-        var request = URLRequest(url: URL(string:urlString)!)
+        var request = URLRequest(url: url)
         
         request.httpMethod = "POST"
         // set headers
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("pJHFbhCxY29tGBpQK1Zlf4NMdkdkKhFI6iYVymeJ",forHTTPHeaderField: "x-api-key")
+        request.addValue(Configuration.sharedInstance.apiKey, forHTTPHeaderField: "x-api-key")
         
-        // set the request-body(JSON)
+        /*// set the request-body(JSON)
         let params: [String: Any] = [
-            "lat": 59.6,
-            "lon": 36.1
-        ]
+            "lat": 41.9,
+            "lon": 12.4
+        ]*/
         do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+            request.httpBody = try JSONSerialization.data(withJSONObject: location.dictionary, options: [])
         } catch{
-            print(error.localizedDescription)
+            print("Error serializing to JSON body \(error.localizedDescription)")
+            return
         }
-        // use NSURLSessionDataTask
+        // use DataTask to load data from server
         let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-            if (error == nil) {
-                let result = String(data: data!, encoding: .utf8)!
-                print(result)
-            } else {
-                print(error!)
-            }
+            dataAvailableCallback(data, (data != nil && error == nil))
         })
         task.resume()
     }

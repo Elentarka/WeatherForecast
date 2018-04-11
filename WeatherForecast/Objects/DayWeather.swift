@@ -9,13 +9,29 @@ import Foundation
 
 struct DayWeather {
     var date: Date
-    var temperature: Float
-    var precipitation: Float
-    var weatherType: String
+    var temperature: Double
+    var precipitation: Double
+    var weatherType: Int
     var weatherText: String
-//    "Date": "2018-04-03T00:00:00Z",
-//    "Temperature": 2.7,
-//    "Precipitation": 0,
-//    "WeatherSymbol": 4,
-//    "WeatherText": "Cloud"
+    
+    init?(with json: [String: Any]) {
+        guard let dateValue = json["Date"] as? String,
+            let temprtValue = json["Temperature"] as? Double,
+            let preciptValue = json["Precipitation"] as? Double,
+            let symbolValue = json["WeatherSymbol"] as? Int,
+            let textValue = json["WeatherText"] as? String
+            else {
+                return nil
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = Constants.dateFormat
+        //dateFormatter.locale = Locale(identifier: "en_US")
+    
+        self.date = dateFormatter.date(from: dateValue) ?? Date()
+        self.temperature = temprtValue
+        self.precipitation = preciptValue
+        self.weatherType = symbolValue
+        self.weatherText = textValue
+    }
 }
