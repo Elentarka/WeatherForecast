@@ -26,9 +26,8 @@ struct DayWeather {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = Constants.dateFormat
-        //dateFormatter.locale = Locale(identifier: "en_US")
-    
         self.date = dateFormatter.date(from: dateValue) ?? Date()
+        
         self.temperature = temprtValue
         self.precipitation = preciptValue
         self.weatherType = symbolValue

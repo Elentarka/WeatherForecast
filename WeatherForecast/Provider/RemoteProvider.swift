@@ -21,13 +21,8 @@ class RemoteProvider: DataProvider {
         request.httpMethod = "POST"
         // set headers
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(Configuration.sharedInstance.apiKey, forHTTPHeaderField: "x-api-key")
+        request.addValue(Configuration.sharedInstance.apiKey, forHTTPHeaderField: Constants.apiKeyHeader)
         
-        /*// set the request-body(JSON)
-        let params: [String: Any] = [
-            "lat": 41.9,
-            "lon": 12.4
-        ]*/
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: location.dictionary, options: [])
         } catch{

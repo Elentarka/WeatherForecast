@@ -12,7 +12,7 @@ class Configuration {
     
     //init default values
     var serverUrl: String = "https://3mypq17dkk.execute-api.eu-central-1.amazonaws.com/testing"
-    var apiKey: String = "" //TODO: set deafult
+    var apiKey: String = "pJHFbhCxY29tGBpQK1Zlf4NMdkdkKhFI6iYVymeJ" 
     
     private init() {
         //read config parameters from plist file

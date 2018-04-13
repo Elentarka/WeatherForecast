@@ -13,20 +13,9 @@ class WeatherProvider {
     private var localProvider: LocalProvider = LocalProvider()
     private var remoteProvider: RemoteProvider = RemoteProvider()
     
-    private init() {
-        
-    }
-    
     func loadData(for location: Location, weatherAvailableCallback: @escaping (_ weather: [DayWeather]?, Bool) -> Void){
-        /*let mockData: [DayWeather] = [
-            DayWeather(date: Date(), temperature: 1.0, precipitation: 0.5, weatherType: "02n", weatherText: "Cloudy"),
-            DayWeather(date: Date(), temperature: 10.0, precipitation: 0.1, weatherType: "26n", weatherText: "Rain"),
-            DayWeather(date: Date(), temperature: -5.0, precipitation: 0.99, weatherType: "45n", weatherText: "Snow")
-        ]
-        self.delegate?.onWeatherDataAvailable(data: mockData)*/
-        //with: request, completionHandler: {data, response, error in
         remoteProvider.readData(location: location, dataAvailableCallback:  { data, success  in
-            print("Data available from remote")
+            print("Data available from remote server")
             var weatherData:[DayWeather] = []
             if success {
                 if let data = data,
@@ -43,7 +32,7 @@ class WeatherProvider {
                             }
                         }
                     } catch let parseError {
-                        print(parseError)
+                        print("Parse JSON error \(parseError)")
                     }
                 }
             } else {

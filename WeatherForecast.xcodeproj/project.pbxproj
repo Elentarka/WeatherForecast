@@ -17,6 +17,7 @@
 		307984F7207D61A400BC420D /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307984F6207D61A400BC420D /* DataProvider.swift */; };
 		307984F9207D677000BC420D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307984F8207D677000BC420D /* Extensions.swift */; };
 		307984FC207EBD1200BC420D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307984FB207EBD1200BC420D /* Constants.swift */; };
+		307984FE207FE9AF00BC420D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307984FD207FE9AF00BC420D /* MapViewController.swift */; };
 		30D757EF207D420F00AF7308 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D757EE207D420F00AF7308 /* AppDelegate.swift */; };
 		30D757F1207D420F00AF7308 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D757F0207D420F00AF7308 /* ViewController.swift */; };
 		30D757F4207D420F00AF7308 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D757F2207D420F00AF7308 /* Main.storyboard */; };
@@ -56,6 +57,7 @@
 		307984F6207D61A400BC420D /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		307984F8207D677000BC420D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		307984FB207EBD1200BC420D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		307984FD207FE9AF00BC420D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		30D757EB207D420F00AF7308 /* WeatherForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D757EE207D420F00AF7308 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30D757F0207D420F00AF7308 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				30D757F0207D420F00AF7308 /* ViewController.swift */,
+				307984FD207FE9AF00BC420D /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				307984F3207D617300BC420D /* LocalProvider.swift in Sources */,
 				30D75822207D454200AF7308 /* DayWeather.swift in Sources */,
 				307984F7207D61A400BC420D /* DataProvider.swift in Sources */,
+				307984FE207FE9AF00BC420D /* MapViewController.swift in Sources */,
 				307984E7207D519D00BC420D /* DayWeatherCellView.swift in Sources */,
 				307984F9207D677000BC420D /* Extensions.swift in Sources */,
 				30D75820207D452800AF7308 /* Location.swift in Sources */,
@@ -528,6 +532,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7W5N2HBY8M;
 				INFOPLIST_FILE = WeatherForecast/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -546,6 +551,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7W5N2HBY8M;
 				INFOPLIST_FILE = WeatherForecast/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
